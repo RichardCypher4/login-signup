@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")  // <-- Allow all origins (any frontend URL)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -31,7 +32,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 
-    // ✅ Login endpoint
+    // Login endpoint
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User loginRequest) {
         Optional<User> user = userRepo.findByEmail(loginRequest.getEmail());
@@ -44,6 +45,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password");
         }
 
-        return ResponseEntity.ok("Login successfull");
+        return ResponseEntity.ok("Login successful");
     }
 }
